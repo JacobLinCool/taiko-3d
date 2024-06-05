@@ -14,7 +14,7 @@
 	export let difficulty = 2;
 	export let auto = false;
 	export let auto_epsilon = 0.01;
-	export let auto_combo_sampling = 0.8;
+	export let auto_combo_sampling = 0.5;
 
 	let canvas: HTMLCanvasElement;
 
