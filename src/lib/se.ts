@@ -1,3 +1,7 @@
+import debug from "debug";
+
+const log = debug("se");
+
 export class SoundEffect {
 	private ctx: AudioContext;
 	private buffers: Record<string, AudioBuffer>;
@@ -25,5 +29,6 @@ export class SoundEffect {
 		source.buffer = buffer;
 		source.connect(this.ctx.destination);
 		source.start(0);
+		log(`Playing sound ${name}`, this.ctx.outputLatency * 1000);
 	}
 }

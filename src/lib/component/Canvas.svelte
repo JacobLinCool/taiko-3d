@@ -12,6 +12,9 @@
 	export let ogg: string;
 	export let tja: string;
 	export let difficulty = 2;
+	export let auto = false;
+	export let auto_epsilon = 0.01;
+	export let auto_combo_sampling = 0.8;
 
 	let canvas: HTMLCanvasElement;
 
@@ -213,6 +216,34 @@
 			mat4.translate(m, m, [x, y, -mid]);
 			mat4.multiply(item.matrix, m, item.matrix);
 		}
+
+		// handle auto mode
+		if (auto) {
+			const first = display_state.display[0];
+			if (first && first.visible_start) {
+				if (first.visible_start === first.visible_end) {
+					if (Math.abs(first.visible_start - 0.1) <= auto_epsilon) {
+						if (first.inner.variant === "Don") {
+							don();
+						} else {
+							kat();
+						}
+					}
+				} else {
+					if (first.visible_start <= 0.1 && first.visible_end >= 0.1) {
+						if (first.inner.variant === "Both") {
+							if (Math.random() < auto_combo_sampling) {
+								if (Math.random() < 0.5) {
+									don();
+								} else {
+									kat();
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	function start() {
@@ -259,24 +290,32 @@
 
 		if (game.engine) {
 			if (event.key === "f" || event.key === "j") {
-				game.se.play("don");
-				game.actions.push(0);
-				shadow = 1;
-				mainctl.lightColor = [255 / 255, 174 / 255, 158 / 255];
-				shadow_timer = 200;
+				don();
 			}
 			if (event.key === "d" || event.key === "k") {
-				game.se.play("kat");
-				game.actions.push(1);
-				shadow = 2;
-				mainctl.lightColor = [145 / 255, 205 / 255, 205 / 255];
-				shadow_timer = 200;
+				kat();
 			}
 		} else {
 			if (event.key === "p") {
 				game.play(difficulty);
 			}
 		}
+	}
+
+	function don() {
+		game.se.play("don");
+		game.actions.push(0);
+		shadow = 1;
+		mainctl.lightColor = [255 / 255, 174 / 255, 158 / 255];
+		shadow_timer = 200;
+	}
+
+	function kat() {
+		game.se.play("kat");
+		game.actions.push(1);
+		shadow = 2;
+		mainctl.lightColor = [145 / 255, 205 / 255, 205 / 255];
+		shadow_timer = 200;
 	}
 
 	function keyup(event: KeyboardEvent) {

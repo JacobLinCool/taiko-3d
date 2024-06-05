@@ -7,6 +7,9 @@
 
 	const qs = $page.url.searchParams;
 	const ext = qs.get("ogg") && qs.get("tja");
+	const auto = !!qs.get("auto");
+	const auto_epsilon = parseFloat(qs.get("ep") || "0.01") || 0.01;
+	const auto_combo_sampling = parseInt(qs.get("cs") || "0.5") || 0.5;
 
 	const songs = {
 		選擇歌曲: {
@@ -53,8 +56,6 @@
 
 	let difficulty = -1;
 
-	debug.enable("game*");
-
 	const diff: Record<number, string> = {
 		"-1": "選擇難度",
 		0: "簡單",
@@ -62,6 +63,8 @@
 		2: "困難",
 		3: "ㄜ...?",
 	};
+
+	debug.enable("game*, se*");
 </script>
 
 <svelte:head>
@@ -69,7 +72,7 @@
 </svelte:head>
 
 {#if ogg && tja && difficulty >= 0}
-	<Canvas {ogg} {tja} {difficulty} />
+	<Canvas {ogg} {tja} {difficulty} {auto} {auto_epsilon} {auto_combo_sampling} />
 {:else}
 	<!-- selectors -->
 	<main class="w-full h-full flex justify-center items-center flex-col gap-4 p-2">
