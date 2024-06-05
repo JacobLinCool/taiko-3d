@@ -3,6 +3,10 @@
 	import debug from "debug";
 	import Canvas from "$lib/component/Canvas.svelte";
 	import Fps from "$lib/component/FPS.svelte";
+	import { page } from "$app/stores";
+
+	const qs = $page.url.searchParams;
+	const ext = qs.get("ogg") && qs.get("tja");
 
 	const songs = {
 		選擇歌曲: {
@@ -37,6 +41,10 @@
 			ogg: "/game/1.7.483 第六天魔王/第六天魔王.ogg",
 			tja: "/game/1.7.483 第六天魔王/第六天魔王.tja",
 		},
+		[ext ? "外部歌曲" : "無外部歌曲 (?ogg=<ogg>&tja=<tja>)"]: {
+			ogg: qs.get("ogg") || "",
+			tja: qs.get("tja") || "",
+		},
 	};
 
 	let song: keyof typeof songs = Object.keys(songs)[0] as any;
@@ -67,7 +75,9 @@
 	<main class="w-full h-full flex justify-center items-center flex-col gap-4 p-2">
 		<select class="select select-bordered w-80" bind:value={song}>
 			{#each Object.keys(songs) as song}
-				<option value={song}>{song}</option>
+				<option value={song} disabled={song.startsWith("無外部歌曲")}>
+					{song}
+				</option>
 			{/each}
 		</select>
 		<select class="select select-bordered w-80" bind:value={difficulty}>
