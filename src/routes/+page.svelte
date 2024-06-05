@@ -47,7 +47,7 @@
 		},
 	};
 
-	let song: keyof typeof songs = Object.keys(songs)[0] as any;
+	let song = ext ? "外部歌曲" : Object.keys(songs)[0];
 	$: ogg = songs[song]?.ogg;
 	$: tja = songs[song]?.tja;
 
@@ -75,17 +75,17 @@
 	<main class="w-full h-full flex justify-center items-center flex-col gap-4 p-2">
 		<select class="select select-bordered w-80" bind:value={song}>
 			{#each Object.keys(songs) as song}
-				<option value={song} disabled={song.startsWith("無外部歌曲")}>
+				<option value={song} disabled={!songs[song].ogg || !songs[song].tja}>
 					{song}
 				</option>
 			{/each}
 		</select>
 		<select class="select select-bordered w-80" bind:value={difficulty}>
 			{#each [-1, 0, 1, 2, 3] as d}
-				<option value={d}>{diff[d]}</option>
+				<option value={d} disabled={d < 0}>{diff[d]}</option>
 			{/each}
 		</select>
-		<div class="prose flex-1 overflow-auto">
+		<div class="prose overflow-auto">
 			<a href="https://github.com/JacobLinCool/rhythm-rs" target="_blank"
 				>The headless game engine is written in Rust</a
 			>
