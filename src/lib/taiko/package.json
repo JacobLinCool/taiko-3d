@@ -1,0 +1,17 @@
+{
+	"name": "taiko-wasm",
+	"collaborators": [
+		"JacobLinCool <jacoblincool@gmail.com>"
+	],
+	"version": "0.1.0",
+	"files": [
+		"taiko_wasm_bg.wasm",
+		"taiko_wasm.js",
+		"taiko_wasm.d.ts"
+	],
+	"module": "taiko_wasm.js",
+	"types": "taiko_wasm.d.ts",
+	"sideEffects": [
+		"./snippets/*"
+	]
+}
