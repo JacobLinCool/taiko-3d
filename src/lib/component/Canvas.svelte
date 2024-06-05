@@ -355,7 +355,7 @@
 <svelte:document on:keydown={keydown} on:keyup={keyup} />
 
 <main
-	class="w-full h-full flex justify-center items-center flex-col gap-2"
+	class="w-full h-full flex justify-center items-center flex-col gap-2 transition-all ease-in-out"
 	class:bg-green-200={judgement === "Great"}
 	class:bg-yellow-200={judgement === "Ok"}
 	class:bg-red-200={judgement === "Miss"}
@@ -364,7 +364,7 @@
 		bind:this={canvas}
 		width="1000"
 		height="1000"
-		class="aspect-square max-w-full max-h-[80%] border border-black box-border shadow-lg"
+		class="aspect-square max-w-full max-h-[80%] border border-black box-border shadow-lg transition-all ease-in-out"
 		class:shadow-red-400={shadow === 1}
 		class:shadow-blue-400={shadow === 2}
 		on:click={start}

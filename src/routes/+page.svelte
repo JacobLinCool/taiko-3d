@@ -48,6 +48,10 @@
 			ogg: qs.get("ogg") || "",
 			tja: qs.get("tja") || "",
 		},
+		本機歌曲: {
+			ogg: "",
+			tja: "",
+		},
 	};
 
 	let song = ext ? "外部歌曲" : Object.keys(songs)[0];
@@ -64,6 +68,37 @@
 		3: "ㄜ...?",
 	};
 
+	let local_input: HTMLInputElement;
+	let local_files: FileList;
+	async function upload() {
+		if (local_files.length !== 2) {
+			alert("請選擇一個 .ogg 或 .mp3 檔案和一個 .tja 檔案");
+			return;
+		}
+
+		const files = Array.from({ length: local_files.length }, (_, i) => local_files.item(i));
+		const ogg_file = files.find((f) => f?.name.endsWith(".ogg") || f?.name.endsWith(".mp3"));
+		const tja_file = files.find((f) => f?.name.endsWith(".tja"));
+
+		if (!ogg_file || !tja_file) {
+			alert("請選擇一個 .ogg 或 .mp3 檔案和一個 .tja 檔案");
+			return;
+		}
+
+		const ogg_url = URL.createObjectURL(ogg_file);
+		const tja_url = URL.createObjectURL(tja_file);
+
+		songs["本機歌曲"] = { ogg: ogg_url, tja: tja_url };
+		ogg = ogg_url;
+		tja = tja_url;
+	}
+
+	function song_change() {
+		if (song === "本機歌曲" && !songs["本機歌曲"].ogg) {
+			local_input.click();
+		}
+	}
+
 	debug.enable("game*, se*");
 </script>
 
@@ -76,9 +111,9 @@
 {:else}
 	<!-- selectors -->
 	<main class="w-full h-full flex justify-center items-center flex-col gap-4 p-2">
-		<select class="select select-bordered w-80" bind:value={song}>
+		<select class="select select-bordered w-80" bind:value={song} on:change={song_change}>
 			{#each Object.keys(songs) as song}
-				<option value={song} disabled={!songs[song].ogg || !songs[song].tja}>
+				<option value={song} disabled={song.includes("無外部歌曲")}>
 					{song}
 				</option>
 			{/each}
@@ -112,3 +147,13 @@
 {/if}
 
 <Fps />
+
+<input
+	type="file"
+	accept=".mp3,.ogg,.tja"
+	multiple
+	class="hidden"
+	bind:files={local_files}
+	on:change={upload}
+	bind:this={local_input}
+/>
