@@ -17,31 +17,31 @@
 			tja: "",
 		},
 		"名探偵コナン メイン・テーマ": {
-			ogg: "/game/1.2.062 名探偵コナン メイン・テーマ/名探偵コナン メイン・テーマ.ogg",
+			ogg: "/game/1.2.062 名探偵コナン メイン・テーマ/名探偵コナン メイン・テーマ.mp3",
 			tja: "/game/1.2.062 名探偵コナン メイン・テーマ/名探偵コナン メイン・テーマ.tja",
 		},
 		前前前世: {
-			ogg: "/game/1.2.037 前前前世/前前前世.ogg",
+			ogg: "/game/1.2.037 前前前世/前前前世.mp3",
 			tja: "/game/1.2.037 前前前世/前前前世.tja",
 		},
 		千本桜: {
-			ogg: "/game/1.3.006 千本桜/千本桜.ogg",
+			ogg: "/game/1.3.006 千本桜/千本桜.mp3",
 			tja: "/game/1.3.006 千本桜/千本桜.tja",
 		},
 		conflict: {
-			ogg: "/game/1.5.035 conflict/conflict.ogg",
+			ogg: "/game/1.5.035 conflict/conflict.mp3",
 			tja: "/game/1.5.035 conflict/conflict.tja",
 		},
 		Nosferatu: {
-			ogg: "/game/1.7.005 Nosferatu/Nosferatu.ogg",
+			ogg: "/game/1.7.005 Nosferatu/Nosferatu.mp3",
 			tja: "/game/1.7.005 Nosferatu/Nosferatu.tja",
 		},
 		零の夜想曲: {
-			ogg: "/game/1.7.334 零の夜想曲/零の夜想曲.ogg",
+			ogg: "/game/1.7.334 零の夜想曲/零の夜想曲.mp3",
 			tja: "/game/1.7.334 零の夜想曲/零の夜想曲.tja",
 		},
 		第六天魔王: {
-			ogg: "/game/1.7.483 第六天魔王/第六天魔王.ogg",
+			ogg: "/game/1.7.483 第六天魔王/第六天魔王.mp3",
 			tja: "/game/1.7.483 第六天魔王/第六天魔王.tja",
 		},
 		[ext ? "外部歌曲" : "無外部歌曲 (?ogg=<ogg>&tja=<tja>)"]: {
